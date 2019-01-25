@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     public bool hasPot = false;
     float speed = 5;
 
+    Points points = new Points();
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,8 @@ public class PlayerMovement : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col) {
         hasPot = true;
         if(col.gameObject.tag == "boat") {
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
+            points.GainPoints(50);
         }
         if(col.gameObject.tag == "hazzard") {
             Application.LoadLevel(Application.loadedLevel);

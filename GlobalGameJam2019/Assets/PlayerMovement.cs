@@ -24,18 +24,15 @@ public class PlayerMovement : MonoBehaviour {
         transform.Translate(speed * v3.normalized * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.E) && canPickUp) {
-            Debug.Log("pot picked up");
             hasPot = true;
             Destroy(objectToDestroy);
             canPickUp = false;
+            SpawnPots.potExists = false;
         }
     }
 
-    void onTriggerEnter2D(Collider2D col) {
-        if(col.gameObject.tag == "boat") {
-            //Application.LoadLevel(Application.loadedLevel);
-            points.GainPoints(50);
-        }
+    void OnTriggerEnter2D(Collider2D col) {
+        Debug.Log("coll");
         if(col.gameObject.tag == "hazzard") {
             Application.LoadLevel(Application.loadedLevel);
         }
@@ -43,6 +40,13 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("pot");
             canPickUp = true;
             objectToDestroy = col.gameObject;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "boat") {
+            //Application.LoadLevel(Application.loadedLevel);
+            points.GainPoints(50);
         }
     }
 }
